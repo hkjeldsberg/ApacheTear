@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* highlight.js Monokai theme */
+@import 'highlight.js/styles/monokai.css';
+
+/* ─── Print styles (US6) ─────────────────────────────────────────── */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .print-target {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Reset Monokai code block colours for print */
+  pre, code {
+    background: #f4f4f4 !important;
+    color: #333 !important;
+  }
+}
+
+/* ─── Base ───────────────────────────────────────────────────────── */
+:root {
+  color-scheme: dark;
+}
+
+html {
+  font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas,
+    'DejaVu Sans Mono', monospace;
+}
+
+/* Smooth scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #49483e #272822;
+}
