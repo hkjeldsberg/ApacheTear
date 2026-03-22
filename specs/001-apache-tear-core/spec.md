@@ -42,23 +42,24 @@ Delivers the value of a private, persistent identity.
 
 ### User Story 2 - Create and View a Note (Priority: P2)
 
-A writer creates a new note with a title and a markdown body. The note is saved,
-immediately visible in the file tree, and renders markdown in a preview pane.
+A writer creates a new note with a title and a markdown body. The note is saved
+and immediately visible in the file tree. The editor is a plain markdown textarea
+— no preview pane. The user writes raw markdown and the file is stored as-is.
 
 **Why this priority**: Creating and reading a note is the single atomic unit of
 value in the application. Every other story builds on this.
 
 **Independent Test**: Can be fully tested by creating a note with markdown
 content (headings, bold, code blocks), saving it, and verifying it appears in
-the file tree and renders correctly in the preview pane.
+the file tree and the raw markdown is preserved correctly in the editor.
 
 **Acceptance Scenarios**:
 
 1. **Given** an authenticated user, **When** they create a new note with a
    title and markdown body and save it, **Then** the note appears in the file
-   tree and the markdown renders correctly in the preview pane.
+   tree and the raw markdown content is stored and displayed correctly in the editor.
 2. **Given** a note exists, **When** the user edits its content, **Then**
-   the preview updates to reflect the saved changes.
+   the changes are auto-saved and the file tree title updates accordingly.
 3. **Given** a note exists, **When** the user renames it, **Then** the file
    tree reflects the new title.
 4. **Given** a note exists, **When** the user deletes it, **Then** it is
@@ -178,8 +179,11 @@ the exported files preserve all formatting.
 - **FR-007**: System MUST allow users to create a note with a title and a
   markdown body.
 - **FR-008**: System MUST display new and existing notes in a file tree
-  immediately after save.
-- **FR-009**: System MUST render markdown content in a preview pane.
+  immediately after save. On mobile the file tree sidebar MUST be collapsible
+  via a hamburger button and hidden by default to maximise editor space.
+- **FR-009**: The editor MUST be a plain markdown textarea. There is no preview
+  pane. The user writes raw markdown syntax directly; the file is stored as-is
+  and is exportable as a `.md` file.
 - **FR-010**: System MUST allow users to edit, rename, and delete their notes.
 - **FR-011**: System MUST store each note as a plain `.md` file on the server
   or storage bucket, readable and editable outside the application.
@@ -242,6 +246,8 @@ the exported files preserve all formatting.
   contrast syntax-colored accents. Minimalistic and professional aesthetic,
   inspired by Obsidian.
 - **Breakpoints**: Mobile < 640 px, Tablet 640 px–1024 px, Desktop > 1024 px.
+  On mobile the sidebar collapses to an off-canvas overlay toggled by a hamburger
+  button. The editor (plain textarea) fills the remaining screen width on all breakpoints.
 - **Motion**: Subtle transitions (150 ms ease) — no jarring animations.
 - **AI**: Claude AI integration is planned for future features; model selection
   is TBD per feature. Not required for this core release.
