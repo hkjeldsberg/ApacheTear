@@ -11,6 +11,7 @@ interface NoteEditorProps {
   initialContent: string
   onTitleChange?: (title: string) => void
   onContentChange?: (content: string) => void
+  actions?: React.ReactNode
 }
 
 const DEBOUNCE_MS = 2000
@@ -21,6 +22,7 @@ export default function NoteEditor({
   initialContent,
   onTitleChange,
   onContentChange,
+  actions,
 }: NoteEditorProps): React.JSX.Element {
   const [title, setTitle] = useState(initialTitle)
   const [content, setContent] = useState(initialContent)
@@ -79,8 +81,8 @@ export default function NoteEditor({
 
   return (
     <div className="flex flex-col h-full">
-      {/* Title */}
-      <div className="flex items-center gap-2 border-b border-monokai-bg-lighter px-4 py-2">
+      {/* Title row — shares space with export actions */}
+      <div className="flex items-center gap-2 border-b border-monokai-bg-lighter px-4 py-2 no-print">
         <label htmlFor="note-title" className="sr-only">
           Note title
         </label>
@@ -91,7 +93,7 @@ export default function NoteEditor({
           onChange={handleTitleChange}
           placeholder="Untitled"
           className={[
-            'flex-1 bg-transparent text-lg font-semibold text-monokai-fg',
+            'flex-1 min-w-0 bg-transparent text-lg font-semibold text-monokai-fg',
             'placeholder:text-monokai-fg-muted',
             'focus:outline-none',
           ].join(' ')}
@@ -99,7 +101,7 @@ export default function NoteEditor({
         {saveStatus !== 'idle' && (
           <span
             className={[
-              'text-xs',
+              'text-xs shrink-0',
               saveStatus === 'error' ? 'text-monokai-pink' : 'text-monokai-fg-muted',
             ].join(' ')}
             aria-live="polite"
@@ -107,6 +109,7 @@ export default function NoteEditor({
             {statusLabel[saveStatus]}
           </span>
         )}
+        {actions}
       </div>
 
       {/* Content */}

@@ -101,10 +101,12 @@ export default function FolderNode({
             : 'text-monokai-fg-muted hover:bg-monokai-bg-light hover:text-monokai-fg',
         ].join(' ')}
         style={{ paddingLeft: `${8 + indent}px` }}
+        onClick={() => { if (!isRenaming) setIsOpen((v) => !v) }}
+        onDoubleClick={() => { if (!isRenaming) setIsRenaming(true) }}
       >
         {/* Expand toggle */}
         <button
-          onClick={() => setIsOpen((v) => !v)}
+          onClick={(e) => { e.stopPropagation(); setIsOpen((v) => !v) }}
           aria-expanded={isOpen}
           aria-label={isOpen ? 'Collapse folder' : 'Expand folder'}
           className="flex-none w-4 text-center text-xs"
@@ -120,17 +122,14 @@ export default function FolderNode({
             onChange={(e) => setRenameValue(e.target.value)}
             onBlur={handleRenameCommit}
             onKeyDown={handleRenameKeyDown}
+            onClick={(e) => e.stopPropagation()}
             aria-label="Rename folder"
             className="flex-1 bg-monokai-bg border border-monokai-blue rounded px-1 text-monokai-fg focus:outline-none"
           />
         ) : (
-          <button
-            className="flex-1 text-left truncate"
-            onClick={() => setIsOpen((v) => !v)}
-            onDoubleClick={() => setIsRenaming(true)}
-          >
+          <span className="flex-1 truncate">
             📁 {folder.name}
-          </button>
+          </span>
         )}
 
         {/* Action icons */}

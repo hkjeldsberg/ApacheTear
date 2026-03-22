@@ -59,6 +59,8 @@ export default function NoteNode({ id, title, isOpen, isActive: isActiveProp }: 
             ? 'bg-monokai-bg-lighter text-monokai-fg'
             : 'text-monokai-fg-muted hover:bg-monokai-bg-light hover:text-monokai-fg',
         ].join(' ')}
+        onClick={() => { if (!isRenaming) router.push(`/notes/${id}`) }}
+        onDoubleClick={() => { if (!isRenaming) setIsRenaming(true) }}
       >
         {isRenaming ? (
           <input
@@ -67,15 +69,12 @@ export default function NoteNode({ id, title, isOpen, isActive: isActiveProp }: 
             onChange={(e) => setRenameValue(e.target.value)}
             onBlur={handleRenameCommit}
             onKeyDown={handleRenameKeyDown}
+            onClick={(e) => e.stopPropagation()}
             aria-label="Rename note"
             className="flex-1 bg-monokai-bg border border-monokai-blue rounded px-1 text-monokai-fg focus:outline-none"
           />
         ) : (
-          <button
-            className="flex-1 text-left truncate flex items-center gap-1.5"
-            onClick={() => router.push(`/notes/${id}`)}
-            onDoubleClick={() => setIsRenaming(true)}
-          >
+          <span className="flex-1 truncate flex items-center gap-1.5">
             {isOpen && !isActive && (
               <span
                 aria-label="Open in workspace"
@@ -83,7 +82,7 @@ export default function NoteNode({ id, title, isOpen, isActive: isActiveProp }: 
               />
             )}
             <span className="truncate">{title || 'Untitled'}</span>
-          </button>
+          </span>
         )}
 
         {/* Action icons (visible on hover) */}
