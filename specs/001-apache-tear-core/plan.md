@@ -110,6 +110,7 @@ specs/001-apache-tear-core/
 │   │   ├── notes.ts               # Note Server Actions
 │   │   ├── folders.ts             # Folder Server Actions
 │   │   └── workspace.ts           # Workspace Server Actions
+│   ├── icon.tsx                   # Favicon — black teardrop SVG via ImageResponse
 │   ├── layout.tsx                 # Root layout (fonts, Tailwind base)
 │   └── page.tsx                   # Root → redirect to /notes
 │
